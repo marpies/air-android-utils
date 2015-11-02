@@ -1,0 +1,26 @@
+<extension xmlns="http://ns.adobe.com/air/extension/15.0">
+  <id>com.marpies.ane.androidutils</id>
+  <versionNumber>1</versionNumber>
+  <platforms>
+
+    <platform name="Android-ARM"> 
+        <applicationDeployment> 
+            <nativeLibrary>libAIRAndroidUtils.jar</nativeLibrary> 
+            <initializer>com.marpies.ane.androidutils.AIRAndroidUtilsExtension</initializer> 
+            <finalizer>com.marpies.ane.androidutils.AIRAndroidUtilsExtension</finalizer> 
+        </applicationDeployment> 
+    </platform> 
+    
+    <platform name="Android-x86">
+        <applicationDeployment>
+            <nativeLibrary>libAIRAndroidUtils.jar</nativeLibrary> 
+            <initializer>com.marpies.ane.androidutils.AIRAndroidUtilsExtension</initializer> 
+            <finalizer>com.marpies.ane.androidutils.AIRFacebookExtension</finalizer> 
+        </applicationDeployment>
+    </platform>
+    
+    <platform name="default"> 
+        <applicationDeployment/> 
+    </platform> 
+  </platforms>
+</extension>
