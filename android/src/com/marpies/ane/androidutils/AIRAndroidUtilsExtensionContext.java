@@ -44,6 +44,8 @@ public class AIRAndroidUtilsExtensionContext extends FREContext {
 		functions.put( "setStatusBarColor", new SetStatusBarColorFunction() );
 		functions.put( "setBrightness", new SetBrightnessFunction() );
 
+		functions.put( "hideWindowStatusBar", new HideWindowStatusBarFunction() );
+
 		functions.put( "isStatusBarColorSupported", new IsStatusBarColorSupportedFunction() );
 		functions.put( "isImmersiveFullScreenSupported", new IsImmersiveFullScreenSupportedFunction() );
 

@@ -59,11 +59,20 @@ package com.marpies.ane.androidutils {
          * @see com.marpies.ane.androidutils.data.AIRAndroidUtilsUIFlags
          */
         public static function setUIVisibility( flags:int ):void {
-            if( !isSupported ) return;
-
-            checkExtensionContext();
+            if( !isSupported || !initExtensionContext() ) return;
 
             mContext.call( "setUIVisibility", flags );
+        }
+
+        /**
+         * Hides the status bar. This changes flags on the entire application's window and not the main view.
+         * This means that when another native view appears (for example, a dialog), the status bar will stay hidden.
+         * If the status bar was hidden using <code>setUIVisibility</code> then it would show up when the dialog appears.
+         */
+        public static function hideWindowStatusBar():void {
+            if( !isSupported || !initExtensionContext() ) return;
+
+            mContext.call( "hideWindowStatusBar" );
         }
 
         /**
@@ -74,9 +83,7 @@ package com.marpies.ane.androidutils {
          *              <code>darkgray</code>.
          */
         public static function setStatusBarColor( color:String ):void {
-            if( !isSupported ) return;
-
-            checkExtensionContext();
+            if( !isSupported || !initExtensionContext() ) return;
 
             if( !color ) throw new ArgumentError( "Parameter color cannot be null." );
 
@@ -88,9 +95,7 @@ package com.marpies.ane.androidutils {
          * @param value Decimal between 0-1, or -1 to use user's preference.
          */
         public static function setBrightness( value:Number ):void {
-            if( !isSupported ) return;
-
-            checkExtensionContext();
+            if( !isSupported || !initExtensionContext() ) return;
 
             mContext.call( "setBrightness", value );
         }
@@ -113,24 +118,21 @@ package com.marpies.ane.androidutils {
          *
          *
          */
-        
-        private static function init():Boolean {
+
+        private static function initExtensionContext():Boolean {
             if( !isSupported ) return false;
 
-            /* Initialize context */
-            mContext = ExtensionContext.createExtensionContext( EXTENSION_ID, null );
-            if( !mContext ) {
-                log( "Error creating extension context for " + EXTENSION_ID );
-                return false;
+            if( mContext === null ) {
+                mContext = ExtensionContext.createExtensionContext( EXTENSION_ID, null );
             }
-            mContext.call( "init", LOG_ENABLED );
-            return true;
-        }
 
-        private static function checkExtensionContext():void {
-            if( !mContext ) {
-                init();
+            if( mContext !== null ) {
+                mContext.call( "init", LOG_ENABLED );
+                return true;
             }
+
+            log( "Error creating extension context for " + EXTENSION_ID );
+            return false;
         }
 
         /**
@@ -142,57 +144,43 @@ package com.marpies.ane.androidutils {
          */
 
         public static function get screenWidth():int {
-            if( !isSupported ) return 0;
+            if( !isSupported || !initExtensionContext()  ) return 0;
 
-            checkExtensionContext();
-            
             return mContext.call( "getScreenWidth") as int;
         }
 
         public static function get screenHeight():int {
-            if( !isSupported ) return 0;
+            if( !isSupported || !initExtensionContext()  ) return 0;
 
-            checkExtensionContext();
-            
             return mContext.call( "getScreenHeight") as int;
         }
 
         public static function get displayMetrics():AIRAndroidUtilsDisplayMetrics {
-            if( !isSupported ) return null;
+            if( !isSupported || !initExtensionContext()  ) return null;
 
-            checkExtensionContext();
-            
             return mContext.call( "getDisplayMetrics") as AIRAndroidUtilsDisplayMetrics;
         }
 
         public static function get systemVersion():int {
-            if( !isSupported ) return 0;
+            if( !isSupported || !initExtensionContext()  ) return 0;
 
-            checkExtensionContext();
-            
             return mContext.call( "getSystemVersion") as int;
         }
 
         public static function get supportedUIFlags():Vector.<int> {
-            if( !isSupported ) return new <int>[];
+            if( !isSupported || !initExtensionContext() ) return new <int>[];
 
-            checkExtensionContext();
-            
             return mContext.call( "getSupportedUIFlags") as Vector.<int>;
         }
 
         public static function get isStatusBarColorSupported():Boolean {
-            if( !isSupported ) return false;
+            if( !isSupported || !initExtensionContext()  ) return false;
 
-            checkExtensionContext();
-            
             return mContext.call( "isStatusBarColorSupported") as Boolean;
         }
 
         public static function get isImmersiveFullScreenSupported():Boolean {
-            if( !isSupported ) return false;
-
-            checkExtensionContext();
+            if( !isSupported || !initExtensionContext()  ) return false;
             
             return mContext.call( "isImmersiveFullScreenSupported") as Boolean;
         }
@@ -200,8 +188,8 @@ package com.marpies.ane.androidutils {
         /**
          * Extension version.
          */
-        public static function version():String {
-            return "1.0.0";
+        public static function get version():String {
+            return "1.1.0";
         }
 
         /**
