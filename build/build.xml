@@ -84,7 +84,7 @@
             <arg value="-package"/>
             <arg value="-target"/>
             <arg value="ane"/>
-            <arg value="${name}.ane"/>
+            <arg value="${packageName}.ane"/>
             <arg value="../extension.xml"/>
             <arg line="-swc swc/${name}.swc"/>
             <arg line="-platform Android-x86 -C android/ ."/>
@@ -92,7 +92,7 @@
             <arg line="-platform default -C default/ ."/>
         </exec>
 
-        <move file="temp/${name}.ane" todir="../bin"/>
+        <move file="temp/${packageName}.ane" todir="../bin"/>
         <delete dir="temp/"/>
     </target>
 
