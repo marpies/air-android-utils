@@ -40,7 +40,7 @@ public class GetDisplayMetricsFunction extends BaseFunction {
 			params[3] = FREObject.newObject( metrics.heightPixels );
 			params[4] = FREObject.newObject( metrics.xdpi );
 			params[5] = FREObject.newObject( metrics.ydpi );
-			return FREObject.newObject( "com.marpies.ane.androidutils.data.AIRAndroidUtilsDisplayMetrics", params );
+			return FREObject.newObject( "com.marpies.ane.androidutils.data.AndroidDisplayMetrics", params );
 		} catch( FREWrongThreadException e ) {
 			e.printStackTrace();
 		} catch( FREASErrorException e ) {

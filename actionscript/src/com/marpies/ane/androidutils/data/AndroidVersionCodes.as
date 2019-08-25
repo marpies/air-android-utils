@@ -16,7 +16,7 @@
 
 package com.marpies.ane.androidutils.data {
 
-    public class AIRAndroidUtilsVersionCodes {
+    public class AndroidVersionCodes {
 
         /**
          * October 2008: The original, first, version of Android.

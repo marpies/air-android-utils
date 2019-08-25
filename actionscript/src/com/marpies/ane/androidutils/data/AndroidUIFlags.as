@@ -16,7 +16,7 @@
 
 package com.marpies.ane.androidutils.data {
 
-    public class AIRAndroidUtilsUIFlags {
+    public class AndroidUIFlags {
 
         /**
          * Special constant for {@link #setSystemUiVisibility(int)}: View has

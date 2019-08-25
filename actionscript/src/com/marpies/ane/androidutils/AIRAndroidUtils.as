@@ -22,12 +22,11 @@ package com.marpies.ane.androidutils {
     import flash.display.Loader;
     import flash.events.Event;
     import flash.events.InvokeEvent;
+    import com.marpies.ane.androidutils.data.AndroidDisplayMetrics;
     import flash.events.StatusEvent;
     import flash.external.ExtensionContext;
     import flash.net.URLRequest;
     import flash.system.Capabilities;
-
-    import com.marpies.ane.androidutils.data.AIRAndroidUtilsDisplayMetrics;
 
     public class AIRAndroidUtils {
 
@@ -55,8 +54,8 @@ package com.marpies.ane.androidutils {
 
         /**
          * Sets UI visibility flags.
-         * @param flags Values from the <code>AIRAndroidUtilsUIFlags</code> class.
-         * @see com.marpies.ane.androidutils.data.AIRAndroidUtilsUIFlags
+         * @param flags Values from the <code>AndroidUIFlags</code> class.
+         * @see com.marpies.ane.androidutils.data.AndroidUIFlags
          */
         public static function setUIVisibility( flags:int ):void {
             if( !isSupported || !initExtensionContext() ) return;
@@ -155,10 +154,10 @@ package com.marpies.ane.androidutils {
             return mContext.call( "getScreenHeight") as int;
         }
 
-        public static function get displayMetrics():AIRAndroidUtilsDisplayMetrics {
+        public static function get displayMetrics():AndroidDisplayMetrics {
             if( !isSupported || !initExtensionContext()  ) return null;
 
-            return mContext.call( "getDisplayMetrics") as AIRAndroidUtilsDisplayMetrics;
+            return mContext.call( "getDisplayMetrics") as AndroidDisplayMetrics;
         }
 
         public static function get systemVersion():int {

@@ -19,7 +19,7 @@ package com.marpies.ane.androidutils.data {
 	/**
 	 * https://developer.android.com/reference/android/util/DisplayMetrics.html
 	 */
-	public class AIRAndroidUtilsDisplayMetrics {
+	public class AndroidDisplayMetrics {
 
 		private var mDensity:Number;
 		private var mDensityDpi:int;
@@ -28,7 +28,7 @@ package com.marpies.ane.androidutils.data {
 		private var mXdpi:Number;
 		private var mYdpi:Number;
 
-		public function AIRAndroidUtilsDisplayMetrics( density:Number, densityDpi:int, widthPixels:int, heightPixels:int, xdpi:Number, ydpi:Number ) {
+		public function AndroidDisplayMetrics( density:Number, densityDpi:int, widthPixels:int, heightPixels:int, xdpi:Number, ydpi:Number ) {
 			mDensity = density;
 			mDensityDpi = densityDpi;
 			mWidthPixels = widthPixels;
