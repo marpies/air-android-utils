@@ -26,6 +26,10 @@ public class AIR {
 
 	private static AIRAndroidUtilsExtensionContext mContext;
 
+    public static void dispatchEvent( String eventName, String message ) {
+        mContext.dispatchStatusEventAsync( eventName, message );
+    }
+
 	public static void log( String message ) {
 		if( mLogEnabled ) {
 			Log.i( TAG, message );

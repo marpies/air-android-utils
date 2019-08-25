@@ -16,16 +16,13 @@
 
 package com.marpies.ane.androidutils {
 
-    import flash.desktop.NativeApplication;
-    import flash.display.Bitmap;
-    import flash.display.BitmapData;
-    import flash.display.Loader;
-    import flash.events.Event;
-    import flash.events.InvokeEvent;
     import com.marpies.ane.androidutils.data.AndroidDisplayMetrics;
+    import com.marpies.ane.androidutils.events.AndroidUIVisibilityEvent;
+
+    import flash.events.EventDispatcher;
+
     import flash.events.StatusEvent;
     import flash.external.ExtensionContext;
-    import flash.net.URLRequest;
     import flash.system.Capabilities;
 
     public class AIRAndroidUtils {
@@ -33,9 +30,12 @@ package com.marpies.ane.androidutils {
         private static const TAG:String = "[AIRAndroidUtils]";
         private static const EXTENSION_ID:String = "com.marpies.ane.androidutils";
 
+        private static const UI_VISIBILITY_CHANGE:String = "AIRAndroidUtils::ui_change";
+
         private static var LOG_ENABLED:Boolean;
 
         private static var mContext:ExtensionContext;
+        private static var mEventDispatcher:EventDispatcher;
 
         /**
          * Do not use. AIRAndroidUtils is a static class.
@@ -51,6 +51,27 @@ package com.marpies.ane.androidutils {
          *
          *
          */
+
+        /**
+         * @private
+         */
+        public static function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false ):void {
+            eventDispatcher.addEventListener( type, listener, useCapture, priority, useWeakReference );
+        }
+
+        /**
+         * @private
+         */
+        public static function removeEventListener( type:String, listener:Function ):void {
+            eventDispatcher.removeEventListener( type, listener );
+        }
+
+        /**
+         * @private
+         */
+        public static function hasEventListener( type:String ):void {
+            eventDispatcher.hasEventListener( type );
+        }
 
         /**
          * Sets UI visibility flags.
@@ -109,6 +130,19 @@ package com.marpies.ane.androidutils {
         }
 
         /**
+         * Enables or disables system UI visibility listener.
+         * Add event listener for <code>AndroidUIVisibilityEvent.CHANGE</code> to be notified
+         * when the system UI flags change.
+         *
+         * @param enable Set to <code>true</code> to enable the listener, <code>false</code> to remove it.
+         */
+        public static function enableUIVisibilityListener( enable:Boolean ):void {
+            if( !isSupported || !initExtensionContext() ) return;
+            
+            mContext.call( "enableUIVisibilityListener", enable );
+        }
+
+        /**
          * Disposes native extension context.
          */
         public static function dispose():void {
@@ -130,18 +164,28 @@ package com.marpies.ane.androidutils {
         private static function initExtensionContext():Boolean {
             if( !isSupported ) return false;
 
+	        if( mContext !== null ) return true;
+
             if( mContext === null ) {
                 mContext = ExtensionContext.createExtensionContext( EXTENSION_ID, null );
             }
 
             if( mContext !== null ) {
                 mContext.call( "init", LOG_ENABLED );
+	            mContext.addEventListener( StatusEvent.STATUS, onStatus );
                 return true;
             }
 
             log( "Error creating extension context for " + EXTENSION_ID );
             return false;
         }
+
+
+        private static function onStatus( event:StatusEvent ):void {
+		    if( event.code == UI_VISIBILITY_CHANGE ) {
+                eventDispatcher.dispatchEvent( new AndroidUIVisibilityEvent( AndroidUIVisibilityEvent.CHANGE, int( event.level ) ) );
+            }
+	    }
 
         /**
          *
@@ -225,6 +269,13 @@ package com.marpies.ane.androidutils {
          *
          *
          */
+
+        private static function get eventDispatcher():EventDispatcher {
+            if( !mEventDispatcher ) {
+                mEventDispatcher = new EventDispatcher();
+            }
+            return mEventDispatcher;
+        }
 
         private static function log( message:String ):void {
             if( LOG_ENABLED ) {
