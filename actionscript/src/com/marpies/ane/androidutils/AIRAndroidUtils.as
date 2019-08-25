@@ -75,6 +75,15 @@ package com.marpies.ane.androidutils {
         }
 
         /**
+         * Makes the navigation bar translucent. Supported on Android Kitkat (API 19) and above.
+         */
+        public static function setTranslucentNavigation():void {
+            if( !isSupported || !initExtensionContext() ) return;
+
+            mContext.call( "setTranslucentNavigation" );
+        }
+
+        /**
          * Changes color of the status bar.
          * @param color Color in the format <code>#RRGGBB</code> or <code>#AARRGGBB</code>, or one of the following values:
          *              <code>red</code>, <code>blue</code>, <code>green</code>, <code>black</code>, <code>white</code>,
