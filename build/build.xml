@@ -22,18 +22,25 @@
     </target>
     <target name="android-build" description="Build Android Library">
 
+        <!-- make the build directory for the java code -->
         <mkdir dir="temp/android/build/"/>
 
-        <javac source="1.6" destdir="temp/android/build/" includeantruntime="false" debug="${ANDROID_DEBUG}">
+        <echo message="Compiling Java sources - using Java ${ant.java.version}."/>
+
+        <!-- compile the java code -->
+        <javac source="1.7" destdir="temp/android/build/" includeantruntime="false" debug="${ANDROID_DEBUG}">
             <src path="../android/src"/>
             <classpath>
                 <pathelement location="${android.sdk}/android.jar"/>
                 <pathelement location="${flex.sdk}/lib/android/FlashRuntimeExtensions.jar"/>
+                <pathelement location="${flex.sdk}/lib/android/lib/runtimeClasses.jar"/>
             </classpath>
         </javac>
 
+        <!-- Make the jar -->
         <jar basedir="temp/android/build/" destfile="temp/android/lib${name}.jar"/>
 
+        <!-- Remove java classes -->
         <delete dir="temp/android/build/"/>
     </target>
 
@@ -61,7 +68,7 @@
             <env key="AIR_SDK_HOME" value="${flex.sdk}"/>
             <arg line='-source-path ../actionscript/src'/>
             <arg line='-output temp/swc/${name}.swc'/>
-            <arg line='-swf-version=25'/>
+            <arg line='-swf-version=26'/>
             <arg line='-external-library-path+="${flex.sdk}/frameworks/libs/air/airglobal.swc"'/>
             <arg line='-include-classes ${classlist}'/>
         </exec>
@@ -89,6 +96,7 @@
             <arg line="-swc swc/${name}.swc"/>
             <arg line="-platform Android-x86 -C android/ ."/>
             <arg line="-platform Android-ARM -C android/ ."/>
+            <arg line="-platform Android-ARM64 -C android/ ."/>
             <arg line="-platform default -C default/ ."/>
         </exec>
 
