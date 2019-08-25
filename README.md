@@ -33,7 +33,7 @@ trace( AIRAndroidUtils.screenHeight );
 
 #### [DisplayMetrics](https://developer.android.com/reference/android/util/DisplayMetrics.html)
 ```
-const dm:AIRAndroidUtilsDisplayMetrics = AIRAndroidUtils.displayMetrics;
+const dm:AndroidDisplayMetrics = AIRAndroidUtils.displayMetrics;
 trace( dm.density );
 trace( dm.densityDpi );
 trace( dm.widthPixels );
@@ -44,7 +44,7 @@ trace( dm.ydpi );
 
 #### System version
 ```
-if( AIRAndroidUtils.systemVersion >= AIRAndroidUtilsVersionCodes.KITKAT ) {
+if( AIRAndroidUtils.systemVersion >= AndroidVersionCodes.KITKAT ) {
     // Use KITKAT's API
 }
 ```
@@ -54,16 +54,16 @@ if( AIRAndroidUtils.systemVersion >= AIRAndroidUtilsVersionCodes.KITKAT ) {
 // Immersive full screen
 if( AIRAndroidUtils.isImmersiveFullScreenSupported ) {
     AIRAndroidUtils.setUIVisibility(
-        AIRAndroidUtilsUIFlags.SYSTEM_UI_FLAG_HIDE_NAVIGATION | // Hides software buttons
-        AIRAndroidUtilsUIFlags.SYSTEM_UI_FLAG_FULLSCREEN | // Hides status bar
-        AIRAndroidUtilsUIFlags.SYSTEM_UI_FLAG_IMMERSIVE_STICKY // Enters immersive full screen
+        AndroidUIFlags.SYSTEM_UI_FLAG_HIDE_NAVIGATION | // Hides software buttons
+        AndroidUIFlags.SYSTEM_UI_FLAG_FULLSCREEN | // Hides status bar
+        AndroidUIFlags.SYSTEM_UI_FLAG_IMMERSIVE_STICKY // Enters immersive full screen
     );
 }
 
 // Temporarily hide the software buttons (appear on touch)
-AIRAndroidUtils.setUIVisibility( AIRAndroidUtilsUIFlags.SYSTEM_UI_FLAG_HIDE_NAVIGATION );
+AIRAndroidUtils.setUIVisibility( AndroidUIFlags.SYSTEM_UI_FLAG_HIDE_NAVIGATION );
 ```
-See the class [AIRAndroidUtilsUIFlags.as](actionscript/src/com/marpies/ane/androidutils/data/AIRAndroidUtilsUIFlags.as) for available UI flags.
+See the class [AndroidUIFlags.as](actionscript/src/com/marpies/ane/androidutils/data/AndroidUIFlags.as) for available UI flags.
 
 #### Brightness
 ```
