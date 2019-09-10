@@ -82,6 +82,23 @@ if( AIRAndroidUtils.isStatusBarColorSupported ) {
 }
 ```
 
+#### UI visibility listener
+
+You can track changes to the system UI by enabling the UI visibility listener. This is helpful when you initially set your custom UI flags and then for example present a native UI dialog. After closing the dialog, the UI flags would reset to the AIR default settings and your custom UI flags would no longer be working.
+
+```as3
+AIRAndroidUtils.addEventListener(AndroidUIVisibilityEvent.CHANGE, onUIVisibilityChanged);
+AIRAndroidUtils.enableUIVisibilityListener(true);
+
+private function onUIVisibilityChanged(event:AndroidUIVisibilityEvent):void
+{
+    // The UI flags have been reset to the AIR default value, set custom after a small delay
+    if( event.uiVisibility == AndroidUIFlags.SYSTEM_UI_FLAG_VISIBLE ) {
+        setTimeout(setCustomUIFlags, 2000);
+    }
+}
+```
+
 ## Build ANE
 ANT build scripts are available in the *build* directory. Edit *build.properties* to correspond with your local setup.
 
@@ -89,6 +106,17 @@ ANT build scripts are available in the *build* directory. Edit *build.properties
 The ANE has been written by [Marcel Piestansky](https://twitter.com/marpies) and is distributed under [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 ## Changelog
+
+#### August 25, 2019 (v1.1.0)
+
+* **Requires AIR 33**
+* Added support for Android 64 bit
+* Changed names of the following classes:
+  * `AIRAndroidUtilsDisplayMetrics` &#8594; `AndroidDisplayMetrics`
+  * `AIRAndroidUtilsUIFlags` &#8594; `AndroidUIFlags`
+  * `AIRAndroidUtilsVersionCodes` &#8594; `AndroidVersionCodes`
+* Added `setTranslucentNavigation` method
+* Added `enableUIVisibilityListener` method 
 
 #### November 2, 2015 (v1.0.0)
 
