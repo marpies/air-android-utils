@@ -109,7 +109,6 @@ The ANE has been written by [Marcel Piestansky](https://twitter.com/marpies) and
 
 #### August 25, 2019 (v1.1.0)
 
-* **Requires AIR 33**
 * Added support for Android 64 bit
 * Changed names of the following classes:
   * `AIRAndroidUtilsDisplayMetrics` &#8594; `AndroidDisplayMetrics`
