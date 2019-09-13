@@ -75,6 +75,7 @@
 
         <unzip src="temp/swc/${name}.swc" dest="temp/swc/content" overwrite="true"/>
 
+        <copy file="temp/swc/${name}.swc" tofile="../bin/${packageName}.swc" overwrite="true"/>
         <copy file="temp/swc/content/library.swf" todir="temp/android" overwrite="true"/>
         <copy file="temp/swc/content/library.swf" todir="temp/default" overwrite="true"/>
     </target>
