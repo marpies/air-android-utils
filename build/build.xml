@@ -35,7 +35,7 @@
         <echo message="Compiling Java sources - using Java ${ant.java.version}."/>
 
         <!-- compile the java code -->
-        <javac source="1.7" destdir="temp/android/build/" includeantruntime="false" debug="${ANDROID_DEBUG}">
+        <javac source="1.8" destdir="temp/android/build/" includeantruntime="false" debug="${ANDROID_DEBUG}">
             <src path="../android/src"/>
             <classpath>
                 <pathelement location="${android.sdk}/android.jar"/>
