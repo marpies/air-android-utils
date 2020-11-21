@@ -41,6 +41,8 @@ public class AIRAndroidUtilsExtensionContext extends FREContext {
 		functions.put( "getSupportedUIFlags", new GetSupportedUIFlagsFunction() );
 		functions.put( "setUIVisibility", new SetUIVisibilityFunction() );
 		functions.put( "enableUIVisibilityListener", new EnableUIVisibilityListenerFunction() );
+		functions.put( "setCutoutMode", new SetCutoutModeFunction() );
+		functions.put( "getDisplayCutoutRects", new GetDisplayCutoutRectsFunction() );
 
 		functions.put( "setStatusBarColor", new SetStatusBarColorFunction() );
 		functions.put( "setBrightness", new SetBrightnessFunction() );

@@ -20,9 +20,9 @@ package com.marpies.ane.androidutils {
     import com.marpies.ane.androidutils.events.AndroidUIVisibilityEvent;
 
     import flash.events.EventDispatcher;
-
     import flash.events.StatusEvent;
     import flash.external.ExtensionContext;
+    import flash.geom.Rectangle;
     import flash.system.Capabilities;
 
     public class AIRAndroidUtils {
@@ -129,6 +129,16 @@ package com.marpies.ane.androidutils {
             mContext.call( "setBrightness", value );
         }
 
+		/**
+		 * Sets the cutout mode. Use <code>CutoutMode.SHORT_EDGES</code> to render app within device's cutout area.
+		 * @param mode
+		 */
+		public static function setCutoutMode( mode:int ):void {
+			if( !isSupported || !initExtensionContext() ) return;
+
+			mContext.call( "setCutoutMode", mode );
+		}
+
         /**
          * Enables or disables system UI visibility listener.
          * Add event listener for <code>AndroidUIVisibilityEvent.CHANGE</code> to be notified
@@ -138,7 +148,7 @@ package com.marpies.ane.androidutils {
          */
         public static function enableUIVisibilityListener( enable:Boolean ):void {
             if( !isSupported || !initExtensionContext() ) return;
-            
+
             mContext.call( "enableUIVisibilityListener", enable );
         }
 
@@ -194,6 +204,12 @@ package com.marpies.ane.androidutils {
          *
          *
          */
+
+        public static function get displayCutoutRects():Vector.<Rectangle> {
+            if( !isSupported || !initExtensionContext()  ) return null;
+
+            return mContext.call( "getDisplayCutoutRects") as Vector.<Rectangle>;
+        }
 
         public static function get screenWidth():int {
             if( !isSupported || !initExtensionContext()  ) return 0;
