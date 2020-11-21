@@ -2,8 +2,15 @@
 <project name="AIRAndroidUtils ant build" default="all">
 
     <!-- Config -->
-    <property file="build.properties" />
+    <property file="build.properties"/>
 
+    <!-- All -->
+    <target name="all" depends="clean,swc,android,package" description="Full build of extension"/>
+
+    <!-- CLEAN -->
+    <target name="clean" description="Clean temp build dir">
+        <delete dir="temp/"/>
+    </target>
 
     <!-- 
 
