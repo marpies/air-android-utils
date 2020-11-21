@@ -99,6 +99,33 @@ private function onUIVisibilityChanged(event:AndroidUIVisibilityEvent):void
 }
 ```
 
+### Display cutouts
+
+To render your app's content within the device's cutout area, use the `setCutoutMode` method. **Note you will need to set `<fullScreen>true</fullScreen>` in your app descriptor XML for this to work.**
+
+```as3
+import com.marpies.ane.androidutils.data.CutoutMode;
+
+...
+
+AIRAndroidUtils.setCutoutMode(CutoutMode.SHORT_EDGES);
+```
+
+To restore cutout mode, use:
+
+```as3
+AIRAndroidUtils.setCutoutMode(CutoutMode.NONE);
+```
+
+To get information about the device's cutout areas, use the `displayCutoutRects` getter. **Note it will return `null` if the cutout mode is NOT `CutoutMode.SHORT_EDGES`.**
+
+```as3
+var areas:Vector.<Rectangle> = AIRAndroidUtils.displayCutoutRects;
+if (areas != null) {
+    trace(areas);
+}
+```
+
 ## Build ANE
 ANT build scripts are available in the *build* directory. Edit *build.properties* to correspond with your local setup.
 
@@ -106,6 +133,11 @@ ANT build scripts are available in the *build* directory. Edit *build.properties
 The ANE has been written by [Marcel Piestansky](https://twitter.com/marpies) and is distributed under [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 ## Changelog
+
+#### November 21, 2020 (v1.2.0)
+
+* Added `setCutoutMode` method
+* Added `displayCutoutRects` getter
 
 #### August 25, 2019 (v1.1.0)
 
