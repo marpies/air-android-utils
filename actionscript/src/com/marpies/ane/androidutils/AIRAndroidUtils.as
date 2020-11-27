@@ -257,7 +257,7 @@ package com.marpies.ane.androidutils {
          * Extension version.
          */
         public static function get version():String {
-            return "1.2.0";
+            return "1.2.1";
         }
 
         /**
