@@ -114,7 +114,7 @@ AIRAndroidUtils.setCutoutMode(CutoutMode.SHORT_EDGES);
 To restore cutout mode, use:
 
 ```as3
-AIRAndroidUtils.setCutoutMode(CutoutMode.NONE);
+AIRAndroidUtils.setCutoutMode(CutoutMode.DEFAULT);
 ```
 
 To get information about the device's cutout areas, use the `displayCutoutRects` getter. **Note it will return `null` if the cutout mode is NOT `CutoutMode.SHORT_EDGES`.**
@@ -133,6 +133,11 @@ ANT build scripts are available in the *build* directory. Edit *build.properties
 The ANE has been written by [Marcel Piestansky](https://twitter.com/marpies) and is distributed under [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 ## Changelog
+
+#### November 27, 2020 (v1.2.1)
+
+* Added `CutoutMode.NEVER`
+* Renamed `CutoutMode.NONE` to `CutoutMode.DEFAULT`
 
 #### November 21, 2020 (v1.2.0)
 
